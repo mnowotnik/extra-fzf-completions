@@ -18,14 +18,14 @@ _fzf_complete_jira_list () {
 }
 
 _fzf_complete_jira() {
-local words
-        setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
-        # http://zsh.sourceforge.net/FAQ/zshfaq03.html
-        # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
-        words=(${(z)LBUFFER})
-        local stop_iter=${#words[@]}
-        local beg_iter=1
-_fzf_complete_jira_list "$@"
+    local words
+    setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
+    # http://zsh.sourceforge.net/FAQ/zshfaq03.html
+    # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
+    words=(${(z)LBUFFER})
+    local stop_iter=${#words[@]}
+    local beg_iter=1
+    _fzf_complete_jira_list "$@"
 # 
 }
 

@@ -18,15 +18,15 @@ _fzf_complete_jira_list () {
 }
 
 _fzf_complete_jira() {
-local cur prev words cword
-        _get_comp_words_by_ref -n : cur prev words cword
-        local stop_iter=$cword
-        local beg_iter=0
-        if ! type $_fzf_orig_completion_jira > /dev/null 2>&1; then
-            _completion_loader "$@"
-            complete -F _fzf_complete_jira -o default -o bashdefault jira
-        fi
-_fzf_complete_jira_list "$@"
+    local cur prev words cword
+    _get_comp_words_by_ref -n : cur prev words cword
+    local stop_iter=$cword
+    local beg_iter=0
+    if ! type $_fzf_orig_completion_jira > /dev/null 2>&1; then
+        _completion_loader "$@"
+        complete -F _fzf_complete_jira -o default -o bashdefault jira
+    fi
+    _fzf_complete_jira_list "$@"
 # _fzf_handle_dynamic_completion jira "$@"
 }
 

@@ -38,14 +38,14 @@ _fzf_complete_docker_container () {
 }
 
 _fzf_complete_docker() {
-local cur prev words cword
-        _get_comp_words_by_ref -n : cur prev words cword
-        local stop_iter=$cword
-        local beg_iter=0
-        if ! type $_fzf_orig_completion_docker > /dev/null 2>&1; then
-            _completion_loader "$@"
-            complete -F _fzf_complete_docker -o default -o bashdefault docker
-        fi
+    local cur prev words cword
+    _get_comp_words_by_ref -n : cur prev words cword
+    local stop_iter=$cword
+    local beg_iter=0
+    if ! type $_fzf_orig_completion_docker > /dev/null 2>&1; then
+        _completion_loader "$@"
+        complete -F _fzf_complete_docker -o default -o bashdefault docker
+    fi
     for ((i=$beg_iter; i<$stop_iter;i++)); do
         case "${words[$i]}" in
             run)

@@ -34,14 +34,14 @@ _fzf_complete_kubectl_pods_post() {
 
 
 _fzf_complete_kubectl() {
-local cur prev words cword
-        _get_comp_words_by_ref -n : cur prev words cword
-        local stop_iter=$cword
-        local beg_iter=0
-        if ! type $_fzf_orig_completion_kubectl > /dev/null 2>&1; then
-            _completion_loader "$@"
-            complete -F _fzf_complete_kubectl -o default -o bashdefault kubectl
-        fi
+    local cur prev words cword
+    _get_comp_words_by_ref -n : cur prev words cword
+    local stop_iter=$cword
+    local beg_iter=0
+    if ! type $_fzf_orig_completion_kubectl > /dev/null 2>&1; then
+        _completion_loader "$@"
+        complete -F _fzf_complete_kubectl -o default -o bashdefault kubectl
+    fi
 
     # find namespace
     local namespace=""

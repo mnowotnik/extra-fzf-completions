@@ -34,13 +34,13 @@ _fzf_complete_kubectl_pods_post() {
 
 
 _fzf_complete_kubectl() {
-local words
-        setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
-        # http://zsh.sourceforge.net/FAQ/zshfaq03.html
-        # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
-        words=(${(z)LBUFFER})
-        local stop_iter=${#words[@]}
-        local beg_iter=1
+    local words
+    setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
+    # http://zsh.sourceforge.net/FAQ/zshfaq03.html
+    # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
+    words=(${(z)LBUFFER})
+    local stop_iter=${#words[@]}
+    local beg_iter=1
 
     # find namespace
     local namespace=""

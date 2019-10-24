@@ -38,13 +38,13 @@ _fzf_complete_docker_container () {
 }
 
 _fzf_complete_docker() {
-local words
-        setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
-        # http://zsh.sourceforge.net/FAQ/zshfaq03.html
-        # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
-        words=(${(z)LBUFFER})
-        local stop_iter=${#words[@]}
-        local beg_iter=1
+    local words
+    setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
+    # http://zsh.sourceforge.net/FAQ/zshfaq03.html
+    # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
+    words=(${(z)LBUFFER})
+    local stop_iter=${#words[@]}
+    local beg_iter=1
     for ((i=$beg_iter; i<$stop_iter;i++)); do
         case "${words[$i]}" in
             run)
