@@ -4,6 +4,11 @@ tmpl=$1
 tool=$2
 shell=$3
 
+unset init_sub beginning_sub finish_sub
+
+if [[ -f src/$tool.custom.sh ]]; then
+    source src/$tool.custom.sh
+fi
 
 if ! type timeout >/dev/null 2>&1; then
 
@@ -50,43 +55,54 @@ fi
 
 if [[ "$shell" == "zsh" ]]; then
     export shebang_sub="#! /usr/bin/env zsh"
-    read -d '' beginning_sub <<-EOM
-    local words
-    setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
-    # http://zsh.sourceforge.net/FAQ/zshfaq03.html
-    # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
-    words=(\${(z)LBUFFER})
-    local stop_iter=\${#words[@]}
+    if ! [[ -v beginning_sub ]]; then
+        read -d '' beginning_sub <<-EOM
+        local words
+        setopt localoptions noshwordsplit noksh_arrays noposixbuiltins
+        # http://zsh.sourceforge.net/FAQ/zshfaq03.html
+        # http://zsh.sourceforge.net/Doc/Release/Expansion.html#Parameter-Expansion-Flags
+        words=(\${(z)LBUFFER})
+        local stop_iter=\${#words[@]}
+        local beg_iter=1
 EOM
+    fi
 
     export beginning_sub
-    export finish_sub=
+    if ! [[ -v finish_sub ]]; then
+        export finish_sub=
+    fi
 
 elif [[ "$shell" == "bash" ]]; then
 
 export shebang_sub="#!/usr/bin/env bash"
 
-read -d '' beginning_sub <<-EOM
-    local cur prev words cword
-    _get_comp_words_by_ref -n : cur prev words cword
-    local stop_iter=\$cword
-    if ! type _$tool > /dev/null 2>&1; then
-        _completion_loader "\$@"
-        complete -F _fzf_complete_$tool -o default -o bashdefault $tool
-    fi
+if ! [[ -v beginning_sub ]]; then
+    read -d '' beginning_sub <<-EOM
+        local cur prev words cword
+        _get_comp_words_by_ref -n : cur prev words cword
+        local stop_iter=\$cword
+        local beg_iter=0
+        if ! type \$_fzf_orig_completion_$tool > /dev/null 2>&1; then
+            _completion_loader "\$@"
+            complete -F _fzf_complete_$tool -o default -o bashdefault $tool
+        fi
 EOM
+fi
 
 export beginning_sub
 
-read -d '' init_sub <<- EOM
+if ! [[ -v init_sub ]]; then
+    read -d '' init_sub <<- EOM
 export _fzf_orig_completion_$tool=_$tool
 complete -F _fzf_complete_$tool -o default -o bashdefault $tool
 EOM
+fi
 
 export init_sub
 
-export finish_sub="_fzf_handle_dynamic_completion $tool \"\$@\""
-
+if ! [[ -v finish_sub ]]; then
+    export finish_sub="_fzf_handle_dynamic_completion $tool \"\$@\""
+fi
 
 else 
     exit 1

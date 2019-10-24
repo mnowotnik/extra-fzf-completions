@@ -34,7 +34,7 @@ _fzf_complete_docker_container () {
 
 _fzf_complete_docker() {
 $beginning_sub
-    for ((i=0; i<$stop_iter;i++)); do
+    for ((i=$beg_iter; i<$stop_iter;i++)); do
         case "${words[$i]}" in
             run)
                 _fzf_complete_docker_run "$@"

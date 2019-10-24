@@ -34,9 +34,9 @@ $beginning_sub
     # find namespace
     local namespace=""
 
-    for ((i=0; i<${#tokens}; i++)); do
-        tok=${tokens[i]}
-        n_tok=${tokens[i+1]}
+    for ((i=$beg_iter; i<$stop_iter; i++)); do
+        tok=${words[i]}
+        n_tok=${words[i+1]}
         case "$tok" in
             -n|--namespace)
                 namespace=$n_tok
@@ -52,14 +52,11 @@ $beginning_sub
     done
 
     if [[ -z $cmd ]]; then
+        $finish_sub
         return
     fi
 
-    local args=("$namespace")
-    args+=$@
-    _fzf_complete_kubectl_pods "$args[@]"
-
-# $finish_sub
+    _fzf_complete_kubectl_pods "$namespace" "$@"
 }
 
 $init_sub
