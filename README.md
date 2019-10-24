@@ -49,6 +49,14 @@ Supported commands are of type:
 
 The fzf-powered fuzzy completion should appear after pressing TAB.
 
+## Configuration
+
+First, enable completion in your zshrc or bashrc file:
+
+```sh
+export EXTRA_FZF_COMPLETIONS=(docker kubectl jira)
+```
+
 ## docker
 
 Docker completion supports a couple of actions:
@@ -73,7 +81,7 @@ Provides a list of issues using the default user configuration.
 jira <action> **<TAB>
 ```
 
-# Configuration
+# Additional configuration
 
 Some settings are controled through environment variables:
 
