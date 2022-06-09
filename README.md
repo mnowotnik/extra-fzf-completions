@@ -1,4 +1,6 @@
 # extra-fzf-completions 
+> :warning: DEPRECATED. Use [fzshell](https://github.com/mnowotnik/fzshell) instead.
+
 Simple, seamless fzf-based completions for a few applications
 
 # !! In ALPHA !!
